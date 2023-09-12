@@ -65,7 +65,7 @@ public class Hello_World {
                 }
             } while (!continueChoice.equals("no"));
             
-            // Exit message
+            // Exit msg
             System.out.println("Goodbye");
         }
     }
