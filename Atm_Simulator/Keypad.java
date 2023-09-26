@@ -1,25 +1,15 @@
 // Keypad.java
 // Represents the keypad of the ATM
 import java.util.Scanner;
-import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.util.Random;
-import javax.swing.JFrame;
-import javax.swing.JTextField;
-
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JButton;// program uses Scanner to obtain user input
 
 public class Keypad 
 {
    private Scanner input; // reads data from the command line
-   private String userinput;
    public static JButton B1;
    public static JButton B2;
    public static JButton B3;
@@ -95,8 +85,5 @@ public class Keypad
 	   return userinput();
    }
    
-   public void resetuserinput(){
-	   userinput = "";
-   }
    
 } // end class Keypad  

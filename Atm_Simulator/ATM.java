@@ -1,5 +1,4 @@
 import java.awt.BorderLayout;
-import java.awt.Button;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -26,12 +25,6 @@ public class ATM
    private static ATM uniqueinstance;
    Iterator Users =  BankDatabase.createIterator();
   
-   // constants corresponding to main menu options
-   private static final int BALANCE_INQUIRY = 1;
-   private static final int WITHDRAWAL = 2;
-   private static final int DEPOSIT = 3;
-   private static final int EXIT = 4;
-
    // no-argument ATM constructor initializes instance variables
    public ATM() 
    {
@@ -75,7 +68,7 @@ public class ATM
 	   
 	   authenticate check = new authenticate();
   	   screen.Mainframe.revalidate();
-  	 screen.Inputfield2.setText("");
+	Screen.Inputfield2.setText("");
   	   keypad.setbuttons();
   	   addkeypadlisteners();
   	 
@@ -111,7 +104,6 @@ public class ATM
     	  else
     		  
     		  createAdminGUI();
-    	  Iterator UserIterator = BankDatabase.createIterator(); 
     	  Addcheck check = new Addcheck();
     	  Deletecheck check2 = new Deletecheck();
     	  screen.button2.addActionListener(check);
@@ -131,7 +123,7 @@ public class ATM
 	      {
 	   	   
 	         //int accnum = Integer.parseInt( screen.Inputfield1.getText() );
-	        int PIN = Integer.parseInt( screen.Inputfield2.getText() );
+	        int PIN = Integer.parseInt( Screen.Inputfield2.getText() );
 	         //Get the PIN from the GUI text field.
 	        authenticateuser(PIN);
 	      }
@@ -170,10 +162,10 @@ public class ATM
 	    	  Account Account1 = bankDatabase.getAccount(currentAccountNumber);
 	    	  screen.messageJLabel.setText("Welcome " + Account1.getUsername() + "                                                                                   ");
 	    	  
-	    	  keypad.B1.addActionListener( check1 );
-	    	  keypad.B2.addActionListener(check3);
-	    	  keypad.B3.addActionListener(check2);
-	    	  keypad.B4.addActionListener(check4);
+	    	  Keypad.B1.addActionListener( check1 );
+	    	  Keypad.B2.addActionListener(check3);
+	    	  Keypad.B3.addActionListener(check2);
+	    	  Keypad.B4.addActionListener(check4);
 	    	  screen.Mainframe.revalidate();
 	   }
    // display the main menu and perform transactions
@@ -228,7 +220,7 @@ public class ATM
           	 
            
            userinput = "";
-           screen.Inputfield2.setText(userinput);
+           Screen.Inputfield2.setText(userinput);
                currentTransaction.execute();
                
                
@@ -250,7 +242,7 @@ public class ATM
 	        screen.Mainframe.add( keypad.addkeypad(), BorderLayout.CENTER);
 	        screen.Mainframe.revalidate();
 	        userinput="";
-	    	  screen.Inputfield2.setText(userinput);
+	    	  Screen.Inputfield2.setText(userinput);
 	      }
 	   }
 
@@ -300,11 +292,11 @@ public class ATM
    public void addkeypadlisteners(){
 	   BCheck BC = new BCheck();
 	   BClear BC1 = new BClear();
-	   keypad.B1.addActionListener(BC);
-	  	 keypad.B2.addActionListener(BC);
-	  	keypad.B3.addActionListener(BC);
-	  	keypad.B4.addActionListener(BC);
-	  	keypad.B5.addActionListener(BC);
+	   Keypad.B1.addActionListener(BC);
+	  	 Keypad.B2.addActionListener(BC);
+	  	Keypad.B3.addActionListener(BC);
+	  	Keypad.B4.addActionListener(BC);
+	  	Keypad.B5.addActionListener(BC);
 	  	keypad.B6.addActionListener(BC);
 	  	keypad.B7.addActionListener(BC);
 	  	keypad.B8.addActionListener(BC);
@@ -319,10 +311,10 @@ public class ATM
       public void actionPerformed( ActionEvent e )
       {
     	  JButton b = (JButton)e.getSource();
-		String label = b.getLabel();
+		String label = b.getText();
         userinput = userinput + label;
         //update the text field using the user's input.
-        screen.Inputfield2.setText(userinput);
+        Screen.Inputfield2.setText(userinput);
         
       }
    }
@@ -332,7 +324,7 @@ public class ATM
       {
     	  //Clear the input field.
     	  userinput = "";
-    	  screen.Inputfield2.setText(userinput);
+    	  Screen.Inputfield2.setText(userinput);
       }
       }
    

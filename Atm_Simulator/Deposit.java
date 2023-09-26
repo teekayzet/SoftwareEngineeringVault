@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 
 public class Deposit extends Transaction
 {
-   private double amount; // amount to deposit
    private Keypad keypad; // reference to keypad
    private DepositSlot depositSlot; // reference to deposit slot
    private final static int CANCELED = 0; // constant for cancel option

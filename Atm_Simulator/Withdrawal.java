@@ -7,12 +7,8 @@ import java.awt.event.ActionListener;
 
 public class Withdrawal extends Transaction
 {
-   private int amount; // amount to withdraw
    private Keypad keypad; // reference to keypad
    private CashDispenser cashDispenser; // reference to cash dispenser
-
-   // constant corresponding to menu option to cancel
-   private final static int CANCELED = 6;
 
    // Withdrawal constructor
    public Withdrawal(int userAccountNumber, Screen atmScreen, 
@@ -42,8 +38,7 @@ public class Withdrawal extends Transaction
      public void transaction(int amount){
     	 BankDatabase bankDatabase = getBankDatabase();
          Screen screen = getScreen();
-    	 boolean cashDispensed = false; // cash was not dispensed yet
-         double availableBalance;
+    	 double availableBalance;
          // check whether user chose a withdrawal amount or canceled
          
             // get available balance of account involved
@@ -60,8 +55,6 @@ public class Withdrawal extends Transaction
                   bankDatabase.debit(getAccountNumber(), amount);
                   
                   cashDispenser.dispenseCash(amount); // dispense cash
-                  cashDispensed = true; // cash was dispensed
-
                   // instruct user to take cash
                   screen.messageJLabel7.setText("\nYour cash has been" +
                      " dispensed. Please take your cash now.");
@@ -88,8 +81,6 @@ public class Withdrawal extends Transaction
    private void displayMenuOfAmounts()
    {
 	   
-      int userChoice = 0; // local variable to store return value
-
       Screen screen = getScreen(); // get screen reference
       screen.createWithdrawGUI();
       screen.Mainframe.add( keypad.addkeypad(), BorderLayout.CENTER);

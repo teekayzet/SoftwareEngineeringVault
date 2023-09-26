@@ -1,16 +1,12 @@
 // Screen.java
 // Represents the screen of the ATM
-import java.awt.Button;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 import javax.swing.JLabel;
+
+import java.awt.FlowLayout;
+
 import javax.swing.JButton;
 
 public class Screen extends JFrame
