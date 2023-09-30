@@ -129,9 +129,9 @@ public static void signup() {
             }
 
             System.out.println("Please do not share your account details with anyone.");
-
             showOptions();
-        } catch (IOException e) {
+        } 
+        catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
         }
     }

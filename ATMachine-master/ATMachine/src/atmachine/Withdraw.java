@@ -1,68 +1,44 @@
 package atmachine;
-
-import java.util.InputMismatchException;
+import java.math.BigDecimal;
 import java.util.Scanner;
 
-class Withdraw {
-    static int withdrawn;
+public class Withdraw{
+    private static String accountNumber;
+    private static BigDecimal withdrawalCharge;
+
+    // Constructor and other methods
 
     public static void cashOut() {
-        int inputPin;
-        int amt;
+        try (Scanner scanner = new Scanner(System.in)) {
+            System.out.print("Enter the amount to be withdrawn: ");
+            BigDecimal amountToWithdraw = scanner.nextBigDecimal();
 
-
-        inputPin = getPin();
-        if (inputPin == UserInfo.acctPin) {
-            System.out.println("YOU CURRENTLY HAVE N" + CheckBalance.getBal() + " IN YOUR ACCOUNT");
-            amt = getAmt();
-            if (CheckBalance.getBal() >= amt) {
-                if (amt % 500 == 0) {
-                    if (amt >= 500) {
-                        CheckBalance.setBal(CheckBalance.getBal(), amt);
-                        withdrawn += amt;
-                        System.out.println("TRANSACTION SUCCESSFUL!");
-                        System.out.println("YOUR REMAINING BALANCE IS N" + CheckBalance.getBal());
-                    } else {
-                        System.out.println("SORRY THE MINIMUM WITHDRAWAL AMOUNT IS N500");
-                    }
-                } else {
-                    System.out.println("SORRY, CAN ONLY DISPENSE CASH IN MULTIPLES OF 500");
-                }
-            } else {
-                System.out.println("INSUFFICIENT FUNDS");
-            }
-        } else {
-            System.out.println("WRONG PIN");
+            subtractWithdrawalChargeFromBalance(accountNumber, amountToWithdraw.add(withdrawalCharge));
         }
-        Repeat.persuade();
+        System.out.println("Withdrawal successful!");
     }
 
-    private static int getAmt() {
-        try (Scanner n = new Scanner(System.in)) {
-            System.out.println("PLEASE ENTER THE AMOUNT YOU WANT TO WITHDRAW \n IN MULTIPLES OF 500");
-            while (true) {
-                try {
-                    return n.nextInt();
-                } catch (InputMismatchException e) {
-                    n.nextLine();
-                    System.out.println("PLEASE ENTER A NUMERIC VALUE");
-                }
-            }
-        }
+    // Other methods
+    
+    private static void subtractWithdrawalChargeFromBalance(String accountNumber, BigDecimal withdrawalAmount) {
+        // Retrieve the account balance from wherever it is stored (e.g., database)
+        BigDecimal currentBalance = getAccountBalance(accountNumber);
+        
+        // Subtract the withdrawal amount and withdrawal charge from the current balance
+        BigDecimal updatedBalance = currentBalance.subtract(withdrawalAmount);
+        
+        // Update the account balance in the database or wherever it is stored
+        updateAccountBalance(accountNumber, updatedBalance);
     }
 
-    private static int getPin() {
-        try (Scanner n = new Scanner(System.in)) {
-            System.out.println("PLEASE ENTER YOUR PIN");
-            while (true) {
-                try {
-                    return n.nextInt();
-                } catch (InputMismatchException e) {
-                    n.nextLine();
-                    System.out.println("PLEASE ENTER A NUMERIC VALUE");
-                }
-            }
-        }
+    private static BigDecimal getAccountBalance(String accountNumber) {
+
+        return withdrawalCharge;
+        // Retrieve the account balance from wherever it is stored (e.g., database)
+        // Return the balance as a BigDecimal object
     }
 
+    private static void updateAccountBalance(String accountNumber, BigDecimal updatedBalance) {
+        // Update the account balance in the database or wherever it is stored
+    }
 }

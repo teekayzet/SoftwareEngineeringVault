@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ATMachine",
+            "request": "launch",
+            "mainClass": "atmachine.ATMachine",
+            "projectName": "ATMachine-master_cd6b99a"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"

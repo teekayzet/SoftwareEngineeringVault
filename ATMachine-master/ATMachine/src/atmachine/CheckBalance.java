@@ -1,22 +1,46 @@
 package atmachine;
 
-import java.util.Random;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
-class CheckBalance {
-    private static final Random luckyNum = new Random();
-    private static int bal = 50000 + luckyNum.nextInt(50000);
-
-    public static int getBal() {
-        return bal;
+public class CheckBalance {
+    private static double balance;
+    
+    // Constructor, getters, setters, and other methods
+    
+    public static void checkBalance() {
+        String csvFile = "transactions.csv";
+        String line;
+        double totalDeposits = 0.0;
+        
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+            // Read the file line by line
+            while ((line = br.readLine()) != null) {
+                // Split the line by commas to extract the transaction details
+                String[] transaction = line.split(",");
+                
+                // Assuming the transaction format is: [date],[amount],[type]
+                // Check if the transaction is a deposit
+                if (transaction.length == 3 && transaction[2].equalsIgnoreCase("deposit")) {
+                    double depositAmount = Double.parseDouble(transaction[1]);
+                    totalDeposits += depositAmount;
+                }
+            }
+            
+            double balance = getTotalBalance() + totalDeposits;
+            System.out.println("Total balance: " + balance);
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-
-    public static void setBal(int bal, int amt) {
-        CheckBalance.bal = bal - amt;
+    
+    private static double getTotalBalance() {
+        // Retrieve the initial balance from wherever it is stored (e.g., database)
+        return balance;
     }
-
-    public static void viewBal() {
-        System.out.println("ACCOUNT NAME\t" + "\tBALANCE");
-        System.out.println(UserInfo.acctName + "\t " + "N" + bal);
-        Repeat.persuade();
-    }
+    
+    // Other methods for updating balance, etc.
 }
+

@@ -7,11 +7,11 @@ public class Home {
     private static final Scanner input = new Scanner(System.in);
 
     public static void home() {
-        System.out.println("WHAT WOULD YOU LIKE TO DO?\n1. VIEW BALANCE\n2. TRANSFER\n3. WITHDRAW");
+        System.out.println("WHAT WOULD YOU LIKE TO DO?\n1. VIEW BALANCE\n2. TRANSFER\n3. WITHDRAW\n4 DEPOSIT");
         String ans = input.nextLine();
         switch (ans) {
             case "1":
-                CheckBalance.viewBal();
+                CheckBalance.checkBalance();
                 break;
             case "2":
                 Transfer.transfer();
@@ -19,6 +19,8 @@ public class Home {
             case "3":
                 Withdraw.cashOut();
                 break;
+            case "4":
+                Deposit.makeDeposit();
             case "Exit":
                 Repeat.persuade();
                 break;
