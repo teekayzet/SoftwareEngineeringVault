@@ -128,7 +128,6 @@ public static void signup() {
                 System.out.println("Your account number: " + accountNumber);
                 System.out.println("Your PIN: " + pin);
                 System.out.println("Please do not share your account details with anyone.");
-                ConsoleClear.clearConsole();
                 showOptions();
             }
         } 

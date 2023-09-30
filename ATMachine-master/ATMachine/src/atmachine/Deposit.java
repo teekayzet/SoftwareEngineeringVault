@@ -46,6 +46,7 @@ public class Deposit {
             deposit.recordTransaction();
         }
         System.out.println("Deposit successful!");
+    
     }
 public static String getAccountNumber() {
     try (BufferedReader reader = new BufferedReader(new FileReader("accounts.csv"))) {

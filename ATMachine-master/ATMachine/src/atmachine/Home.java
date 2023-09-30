@@ -22,9 +22,6 @@ public class Home {
                 break;
             case "4":
                 Deposit.makeDeposit();
-            case "Exit":
-                Repeat.persuade();
-                break;
             default:
                 System.out.println("PLEASE ENTER A VALID OPTION!");
                 home();
