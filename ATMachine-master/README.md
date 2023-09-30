@@ -5,8 +5,7 @@ This Java ATM Banking System is a simple application that allows users to perfor
 The system uses a database to store user accounts and transaction information. It also uses a variety of security features to protect user data and prevent fraudulent transactions.
 
 You can watch the five-minute software demo and code walkthrough on YouTube at the following link:
-
-
+https://youtu.be/ikUVx0mqPoc
 ## Development Environment
 
 The system was developed using the following tools:
