@@ -31,7 +31,8 @@ public class CheckBalance {
             double balance = getTotalBalance() + totalDeposits;
             System.out.println("Total balance: " + balance);
             
-        } catch (IOException e) {
+        }
+         catch (IOException e) {
             e.printStackTrace();
         }
     }

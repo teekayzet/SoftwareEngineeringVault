@@ -135,11 +135,13 @@ private static void viewAllAccountDetails() {
                 }
     
                 // Prompt to continue viewing transaction history
-                System.out.print("Do you want to continue viewing transaction history? (Y/N): ");
                  try (Scanner scanner = new Scanner(System.in)) {
                     {
+                    System.out.print("Do you want to continue viewing transaction history? (Y/N): ");
+                    if (scanner.hasNextLine()){
                     String continueResponse = scanner.nextLine();
                     continueViewing = continueResponse.equalsIgnoreCase("Y");
+                    }
          }
                 } 
         }catch (IOException e) {
