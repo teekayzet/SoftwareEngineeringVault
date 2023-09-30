@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ATMachine$ConsoleClear",
+            "request": "launch",
+            "mainClass": "atmachine.ATMachine$ConsoleClear",
+            "projectName": "ATMachine-master_cd6b99a"
+        },
+        {
+            "type": "java",
             "name": "ATMachine",
             "request": "launch",
             "mainClass": "atmachine.ATMachine",

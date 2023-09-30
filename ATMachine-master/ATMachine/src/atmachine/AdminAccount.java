@@ -1,6 +1,7 @@
 package atmachine;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.io.BufferedReader;
@@ -18,7 +19,7 @@ public class AdminAccount {
 
     public static void runAdminMenu() {
         Scanner scanner = new Scanner(System.in);
-
+        ATMachine.ConsoleClear.clearConsole();
         System.out.println("Please select an option:");
         System.out.println("1. View all account details");
         System.out.println("2. View transaction history");
@@ -45,65 +46,103 @@ public class AdminAccount {
         scanner.close();
     }
 
-    private static void viewAllAccountDetails() {
-        // Code to view all account details...
+private static void viewAllAccountDetails() {
+    boolean backToMainMenu = false;
+    
+    while (!backToMainMenu) {
         System.out.println("Account Details:");
-        System.out.println("| Account Number | Full Name        | National ID   | Date of Birth | Occupation      | Address         |");
+        System.out.println("| Account Number | Password     |Full Name        | National ID   | Date of Birth | Occupation      | Address         |");
 
         try (BufferedReader reader = new BufferedReader(new FileReader(ACCOUNTS_FILE))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] accountData = line.split(",");
                 String accountNumber = accountData[0];
+                String password = accountData[1];
                 String fullName = accountData[2];
                 String nationalId = accountData[3];
                 String dateOfBirth = accountData[4];
                 String occupation = accountData[5];
                 String address = accountData[6];
 
-                System.out.printf("| %14s | %16s | %13s | %14s | %16s | %16s |%n", accountNumber, fullName, nationalId,
+                System.out.printf("| %14s | %12s | %16s | %13s | %14s | %16s | %16s |%n", accountNumber, password, fullName, nationalId,
                         dateOfBirth, occupation, address);
             }
         } catch (IOException e) {
             System.out.println("Error reading file: " + e.getMessage());
         }
+        
+        // Prompt user to go back to the main menu or exit
+        System.out.println("1. Go back to the main menu");
+        System.out.println("2. Exit");
+        System.out.print("Enter your choice: ");
+        
+        try {
+            try (Scanner input = new Scanner(System.in)) {
+                int choice = input.nextInt();
+                
+                switch (choice) {
+                    case 1: // Go back to the main menu
+                        backToMainMenu = true;
+                        AdminAccount.runAdminMenu();
+                        break;
+                    case 2: // Exit
+                        System.out.println("Exiting...");
+                        System.exit(0);
+                        break;
+                    default:
+                        System.out.println("Invalid choice!");
+                        break;
+                }
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input! Please enter a number.");
+        }
     }
-  
-    // ...
+}
 
     private static void viewTransactionHistory() {
-        // Code to view transaction history...
+        boolean continueViewing = true;
+    
+        while (continueViewing) {
             BufferedReader reader = null;
             try {
                 reader = new BufferedReader(new FileReader(TRANSACTION_FILE));
     
-                try (// Prompt the user to enter the name or ID number to search
-                Scanner scanner = new Scanner(System.in)) {
+                try (Scanner scanner = new Scanner(System.in)) {
                     System.out.print("Enter the user's name or ID number to search: ");
                     String searchQuery = scanner.nextLine();
-   
+    
                     System.out.println("Transaction History:");
-   
+    
                     String line;
                     boolean hasTransactions = false;
-   
+    
                     while ((line = reader.readLine()) != null) {
                         String[] transactionData = line.split(",");
                         String accountNumber = transactionData[0];
                         String transactionDetails = transactionData[1];
-   
-                        // Check if the account number or user's name from transaction details matches the search query
+    
                         if (accountNumber.equals(searchQuery) || transactionDetails.contains(searchQuery)) {
                             System.out.printf("| %-14s | %s%n", accountNumber, transactionDetails);
                             hasTransactions = true;
                         }
                     }
-                    
+    
                     if (!hasTransactions) {
                         System.out.println("No transaction history found for the user.");
                     }
                 }
-            } catch (IOException e) {
+    
+                // Prompt to continue viewing transaction history
+                System.out.print("Do you want to continue viewing transaction history? (Y/N): ");
+                 try (Scanner scanner = new Scanner(System.in)) {
+                    {
+                    String continueResponse = scanner.nextLine();
+                    continueViewing = continueResponse.equalsIgnoreCase("Y");
+         }
+                } 
+        }catch (IOException e) {
                 System.out.println("Error reading file: " + e.getMessage());
             } finally {
                 try {
@@ -112,9 +151,9 @@ public class AdminAccount {
                     }
                 } catch (IOException e) {
                     System.out.println("Error closing file: " + e.getMessage());
-                }       
-        // ...
-    }
+                }
+            }
+        }    
     
     }
     private static void editAccountHolderDetails() {
@@ -139,11 +178,11 @@ public class AdminAccount {
                     if (accountNumber.equals(accountNumberToEdit)) {
                         // Display current details and prompt for new details
                         System.out.println("Current Account Details:");
-                        System.out.println("Full Name: " + accountData[1]);
-                        System.out.println("National ID: " + accountData[2]);
-                        System.out.println("Date of Birth: " + accountData[3]);
-                        System.out.println("Occupation: " + accountData[4]);
-                        System.out.println("Address: " + accountData[5]);
+                        System.out.println("Full Name: " + accountData[2]);
+                        System.out.println("National ID: " + accountData[3]);
+                        System.out.println("Date of Birth: " + accountData[4]);
+                        System.out.println("Occupation: " + accountData[5]);
+                        System.out.println("Address: " + accountData[6]);
 
                         System.out.println("Enter new details:");
 

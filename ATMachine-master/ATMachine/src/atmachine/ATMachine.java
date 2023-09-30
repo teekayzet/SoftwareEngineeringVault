@@ -10,14 +10,15 @@ import java.io.IOException;
 
 public class ATMachine {
     public static final String ACCOUNTS_FILE = "accounts.csv";
-    private static final Object ADMIN_USERNAME = "ADMINISTRATOR";
-    private static final Object ADMIN_PASSWORD = "97831005290012";
+    private static final Object ADMIN_USERNAME = "ADMIN";
+    private static final Object ADMIN_PASSWORD = "9783";
     public static void main(String[] args) {
+        ConsoleClear.clearConsole();
         System.out.println("WELCOME TO Takudzwa's BANK!");
+        System.out.println("Please select an option:");
         showOptions();
     }
     public static void showOptions(){
-        System.out.println("Please select an option:");
         System.out.println("1.Login");
         System.out.println("2.Signup");
         System.out.println("3.Login As Admin");
@@ -50,7 +51,7 @@ public class ATMachine {
 
             System.out.print("Enter your account number: ");
             try (Scanner scanner = new Scanner(System.in)) {
-                int accountNumber = Integer.parseInt(scanner.nextLine());
+                long accountNumber = Long.parseLong(scanner.nextLine());
 
                 System.out.print("Enter your pin: ");
                 int pin =Integer.parseInt(scanner.nextLine());
@@ -59,9 +60,9 @@ public class ATMachine {
                 boolean isValidUser = false;
 
                 //iterate through the CSV file and check if the entered account nummber and pin match
-                while((line = reader.readLine()) != null){
+                while((line = reader.readLine())  != null){
                     String[] accountData = line.split(",");
-                    int storedAccountNumber = Integer.parseInt(accountData[0]);
+                    long storedAccountNumber = Long.parseLong(accountData[0]);
                     int storedPin = Integer.parseInt(accountData[1]);
 
                     if (accountNumber == storedAccountNumber && pin == storedPin) {
@@ -77,7 +78,7 @@ public class ATMachine {
                     showOptions();
                 }
             } catch (NumberFormatException e) {
-                // TODO Auto-generated catch block
+                // 
                 e.printStackTrace();
             }
         }catch (IOException e) {
@@ -126,10 +127,10 @@ public static void signup() {
                 System.out.println("Account created successfully!");
                 System.out.println("Your account number: " + accountNumber);
                 System.out.println("Your PIN: " + pin);
+                System.out.println("Please do not share your account details with anyone.");
+                ConsoleClear.clearConsole();
+                showOptions();
             }
-
-            System.out.println("Please do not share your account details with anyone.");
-            showOptions();
         } 
         catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
@@ -176,6 +177,36 @@ public static void signup() {
         // Format the PIN with leading zeros if necessary
         return String.format("%04d", pin);
     }
+    public class ConsoleClear {
+
+        public static void main(String[] args) {
+    
+            System.out.println("Press Enter to continue...");
+    
+            try {
+                System.in.read();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            clearConsole();
+        }
+
+    public static void clearConsole() {
+        // Windows
+        if (System.getProperty("os.name").contains("Windows")) {
+            try {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
+            }
+        } else { // Linux, Unix, macOS
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+        }
+    }
+}
+
+    
 }
 
 //
