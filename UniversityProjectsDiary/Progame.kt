@@ -1,95 +1,116 @@
-data class Book(val bookId: Int, var title: String, var isBorrowed: Boolean = false)
+// Book class
+data class Book(
+    val bookId: Int,
+    val title: String,
+    val author: String,
+    var isAvailable: Boolean = true, // Indicates if the book is available for borrowing
+    var borrowerId: Int? = null      // ID of the student who borrowed the book
+)
 
+// Library class
 class Library {
     private val books = mutableListOf<Book>()
 
-    fun addBook(book: Book) {
+    // Add a book to the library
+    fun addBook(bookId: Int, title: String, author: String) {
+        val book = Book(bookId, title, author)
         books.add(book)
     }
 
-    fun removeBook(bookId: Int) {
-        books.removeIf { it.bookId == bookId }
-    }
-
-    fun borrowBook(bookId: Int): Boolean {
-        val book = books.find { it.bookId == bookId && !it.isBorrowed }
-        return if (book != null) {
-            book.isBorrowed = true
-            true
-        } else false
-    }
-
-    fun returnBook(bookId: Int) {
-        val book = books.find { it.bookId == bookId && it.isBorrowed }
-        book?.isBorrowed = false
-    }
-
-    fun listAvailableBooks() {
-        val availableBooks = books.filter { !it.isBorrowed }
-        for (book in availableBooks) {
-            println("${book.bookId} - ${book.title}")
+    // Borrow a book from the library
+    fun borrowBook(bookId: Int, studentId: Int) {
+        val book = books.find { it.bookId == bookId }
+        if (book != null) {
+            if (book.isAvailable) {
+                book.isAvailable = false
+                book.borrowerId = studentId
+                println("Book '${book.title}' borrowed successfully.")
+            } else {
+                println("Book '${book.title}' is currently not available.")
+            }
+        } else {
+            println("Invalid Book ID.")
         }
     }
 
-    fun isBookAvailable(bookId: Int): Boolean {
+    // Return a borrowed book to the library
+    fun returnBook(bookId: Int) {
         val book = books.find { it.bookId == bookId }
-        return book?.isBorrowed == false
+        if (book != null) {
+            if (!book.isAvailable) {
+                book.isAvailable = true
+                book.borrowerId = null
+                println("Book '${book.title}' returned successfully.")
+            } else {
+                println("Book '${book.title}' is already available.")
+            }
+        } else {
+            println("Invalid Book ID.")
+        }
+    }
+
+    // Print the available books in the library
+    fun printBooks() {
+        println("Available Books:")
+        books.filter { it.isAvailable }.forEach { book ->
+            println("ID: ${book.bookId} | Title: ${book.title} | Author: ${book.author}")
+        }
     }
 }
 
+// Librarian class
+data class Librarian(val username: String, val password: String)
+
 fun main() {
     val library = Library()
+    library.addBook(1, "Book 1", "Author 1")
+    library.addBook(2, "Book 2", "Author 2")
+    library.addBook(3, "Book 3", "Author 3")
 
-    loop@ while (true) {
-        println("\nOptions:\n1. Add Book\n2. Remove Book\n3. Borrow Book\n4. Return Book\n5. List Available Books\n6. Check Book Availability\n7. Exit")
-        when (readLine()?.toIntOrNull()) {
-            1 -> {
-                println("Enter Book ID: ")
-                val id = readLine()!!.toInt()
-                println("Enter Book Title: ")
-                val title = readLine()!!
-                library.addBook(Book(id, title))
-                println("Book added.")
+    val librarian = Librarian("admin", "password")
+
+    // Librarian login
+    var loggedIn = false
+    while (!loggedIn) {
+        print("Enter username: ")
+        val username = readLine() ?: ""
+        print("Enter password: ")
+        val password = readLine() ?: ""
+        loggedIn = librarian.username == username && librarian.password == password
+        if (!loggedIn) {
+            println("Invalid credentials. Please try again.")
+        }
+    }
+
+    // Librarian actions
+    var action = ""
+    while (action != "exit") {
+        println("\nLibrarian Menu:")
+        println("1. Borrow Book")
+        println("2. Return Book")
+        println("3. View Available Books")
+        println("Type 'exit' to quit.")
+        print("Enter your choice: ")
+        action = readLine() ?: ""
+
+        when (action) {
+            "1" -> {
+                print("Enter the Book ID: ")
+                val bookId = readLine()?.toIntOrNull() ?: 0
+                print("Enter the Student ID: ")
+                val studentId = readLine()?.toIntOrNull() ?: 0
+                library.borrowBook(bookId, studentId)
             }
-            2 -> {
-                println("Enter Book ID to remove: ")
-                val id = readLine()!!.toInt()
-                library.removeBook(id)
-                println("Book removed.")
+            "2" -> {
+                print("Enter the Book ID: ")
+                val bookId = readLine()?.toIntOrNull() ?: 0
+                library.returnBook(bookId)
             }
-            3 -> {
-                println("Enter Book ID to borrow: ")
-                val id = readLine()!!.toInt()
-                if (library.borrowBook(id)) {
-                    println("Book borrowed.")
-                } else {
-                    println("Book unavailable or already borrowed.")
-                }
+            "3" -> {
+                library.printBooks()
             }
-            4 -> {
-                println("Enter Book ID to return: ")
-                val id = readLine()!!.toInt()
-                library.returnBook(id)
-                println("Book returned.")
-            }
-            5 -> {
-                println("Available books:")
-                library.listAvailableBooks()
-            }
-            6 -> {
-                println("Enter Book ID to check availability: ")
-                val id = readLine()!!.toInt()
-                if (library.isBookAvailable(id)) {
-                    println("Book is available.")
-                } else {
-                    println("Book is currently borrowed.")
-                }
-            }
-            7 -> {
-                println("Exiting...")
-                break@loop
-            }
-            else -> println("Invalid choice!")
+            "exit" -> println("Exiting.")
+            else -> println("Invalid choice. Please try again.")
         }
     }
 }
