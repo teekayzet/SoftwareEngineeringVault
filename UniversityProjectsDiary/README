@@ -1,0 +1,39 @@
+# Library Management System
+
+Welcome to the Library Management System repository! This project is a library management system implemented in Kotlin. It allows you to  search, and manage books in a library.
+
+## Features
+
+- Search for books by their ID, title, or author name.
+- Remove books from the library.
+- Track the books that are borrowed
+- Display all books in the library.
+
+## Technologies Used
+
+- Kotlin
+- IntelliJ IDEA
+
+## How to Use
+
+1. Clone this repository to your local machine.
+2. Open the project in IntelliJ IDEA.
+3. Build and run the project.
+
+## Usage
+
+Here's an example of how you can add multiple books to the library:
+
+
+
+## Contributions
+
+Contributions to this repository are not currently accepted as this serves as a personal project. However, feel free to explore the code and suggest improvements.
+
+## License
+
+No License
+
+## Contact
+
+If you have any questions or would like to get in touch, you can reach me at [takudzwa.mutamburigwa@gmail.com].
