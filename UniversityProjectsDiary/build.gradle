@@ -1,3 +1,0 @@
-dependencies {
-            kotlin("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.50")
-}
