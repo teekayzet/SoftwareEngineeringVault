@@ -1,2 +1,8 @@
 # requirements.txt
 
+certifi==2023.7.22
+click==8.1.7
+PyJWT==2.8.0
+rsconnect-python==1.21.0
+semver==3.0.2
+six==1.16.0
