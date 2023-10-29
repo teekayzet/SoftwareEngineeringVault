@@ -22,7 +22,7 @@ body {
   font-family: "Poppins", sans-serif;
   font-weight: 300;
   font-size: 100%;
-  background-color: #DC143C;
+  background-color: #1496dc;
   line-height: 1.5;
   color: #000;
 }
@@ -116,7 +116,7 @@ button{
 </style>
 </head>
 <body>
-    <button id="back_btn" onClick={window.history.back()}>Back to Home Page</button>
+    <button id="back_btn" onClick="window.location.href = 'index.html'">Back to Home Page</button>
     <div class="movie">
         <h2><u>Movie Recommendations for "{{ search_name }}"</u></h2>
         <table class="movie_table" align="center">

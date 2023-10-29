@@ -49,16 +49,14 @@ def get_recommendations(title):
 
 # Set up the main route
 @app.route('/', methods=['GET', 'POST'])
-
 def main():
     if flask.request.method == 'GET':
-        return(flask.render_template('index.html'))
+        return flask.render_template('index.html')
             
     if flask.request.method == 'POST':
         m_name = " ".join(flask.request.form['movie_name'].title().split())
-#        check = difflib.get_close_matches(m_name,all_titles,cutout=0.50,n=1)
         if m_name not in all_titles:
-            return(flask.render_template('notFound.html',name=m_name))
+            return flask.render_template('notFound.html', name=m_name)
         else:
             result_final = get_recommendations(m_name)
             names = []
@@ -67,14 +65,12 @@ def main():
             for i in range(len(result_final)):
                 names.append(result_final.iloc[i][0])
                 releaseDate.append(result_final.iloc[i][2])
-                if(len(str(result_final.iloc[i][1]))>3):
+                if len(str(result_final.iloc[i][1])) > 3:
                     homepage.append(result_final.iloc[i][1])
                 else:
                     homepage.append("#")
                 
-
-            return flask.render_template('found.html',movie_names=names,movie_homepage=homepage,search_name=m_name, movie_releaseDate=releaseDate)
+            return flask.render_template('found.html', movie_names=names, movie_homepage=homepage, search_name=m_name, movie_releaseDate=releaseDate)
 
 if __name__ == '__main__':
     app.run(host="127.0.0.1", port=8080, debug=True)
-    #app.run()
