@@ -1,0 +1,33 @@
+Tetris Game
+#Overview
+
+I have developed a classic Tetris game using HTML, CSS for the user interface, and JavaScript for the backend logic. The game allows players to experience the timeless challenge of arranging falling blocks to create solid horizontal lines.
+
+#Software Demo Video
+
+
+#Development Environment
+
+I used the following tools to develop the software:
+
+Text editor (e.g., Visual Studio Code, Sublime Text)
+Web browser for testing and debugging (e.g., Google Chrome, Mozilla Firefox)
+
+The programming languages and libraries used are:
+
+JavaScript for game logic
+HTML for creating the structure of the game
+CSS for styling the user interface
+
+#Useful Websites
+
+During the development process, these websites were helpful:
+
+MDN Web Docs
+W3Schools
+
+#Future Work
+
+To improve the game in the future, the following enhancements are planned:
+Improve the user interface with more responsive design for different screen sizes
+Add sound effects and background music to enhance the gaming experience
